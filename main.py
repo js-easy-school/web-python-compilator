@@ -1,6 +1,6 @@
-from pyscript import document
-from pirate_translation_module import arrr  # Replace 'pirate_translation_module' with the actual module name
+import arrr
 import sys
+from pyscript import document
 
 # Redefining the print function to write to stdout
 def print(*args, **kwargs):
