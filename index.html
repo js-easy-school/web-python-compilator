@@ -7,20 +7,32 @@
       <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
       <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
       <script type="text/javascript">
-          function executePythonCode() {
+          async function executePythonCode() {
               var input = document.getElementById('english').value;
-              // Execute Python code using the input
-              // Example: You can use fetch to send the input to a server-side script for execution
-              fetch('/execute-python', {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({ code: input }),
-              })
-              .then(response => response.json())
-              .then(data => {
-                  document.getElementById('output').innerText = data.output;
+              try {
+                  // Simulate Python code execution
+                  // Replace this with your actual Python code execution logic
+                  // For example, you can use a server-side script to execute the Python code
+                  // and return the result
+                  var output = await simulatePythonExecution(input);
+                  document.getElementById('output').innerText = output;
+              } catch (error) {
+                  console.error('Error executing Python code:', error);
+              }
+          }
+
+          // Simulated Python code execution function
+          function simulatePythonExecution(input) {
+              // Simulate Python code execution and return the result
+              // Replace this with your actual Python code execution logic
+              // For example, you can use fetch to send the input to a server-side script for execution
+              return new Promise((resolve, reject) => {
+                  // Simulate a delay to mimic Python code execution
+                  setTimeout(() => {
+                      // Simulated Python code execution result
+                      var result = "Pirate speak translation: " + input.replace(/r/g, 'arr');
+                      resolve(result);
+                  }, 1000); // Simulated 1 second delay
               });
           }
       </script>
