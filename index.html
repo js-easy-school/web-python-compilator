@@ -52,6 +52,7 @@
 </head>
 <body>
 <script type="text/javascript"> 
+Prism.highlightAll();
 // output functions are configurable.  This one just appends some text
 // to a pre element.
 function outf(text) { 
@@ -63,31 +64,45 @@ function builtinRead(x) {
             throw "File not found: '" + x + "'";
     return Sk.builtinFiles["files"][x];
 }
-
 // Here's everything you need to run a python program in skulpt
 // grab the code from your textarea
 // get a reference to your pre element for output
 // configure the output function
 // call Sk.importMainWithBody()
 function runit() { 
-   var prog = document.getElementById("yourcode").textContent;  
+   var prog = document.getElementById("yourcode").value; 
    var mypre = document.getElementById("output"); 
    mypre.innerHTML = ''; 
    Sk.pre = "output";
-	@@ -91,10 +91,8 @@ <h1>Python Compiler</h1>
+   Sk.configure({output:outf, read:builtinRead}); 
+   (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+   var myPromise = Sk.misceval.asyncToPromise(function() {
+       return Sk.importMainWithBody("<stdin>", false, prog, true);
+   });
+   myPromise.then(function(mod) {
+       console.log('success');
+   },
+       function(err) {
+       console.log(err.toString());
+   });
+} 
+</script> 
+  <h1>Python Compiler</h1>
   <div id="container">
     <div id="input-container">
       <h3>Try This</h3>
-      <pre id="yourcode" class="language-python" contenteditable="true" placeholder="Enter your Python code here..." rows="10"></pre><br />
-      <button type="button" onclick="runit()">Run</button>
+      <form>
+        <textarea id="yourcode" class="language-python" placeholder="Enter your Python code here..." rows="10"></textarea><br />
+        <button type="button" onclick="runit()">Run</button>
+      </form>
     </div>
     <div id="output-container">
       <h3>Output</h3>
-	@@ -103,9 +101,7 @@ <h3>Output</h3>
+      <pre id="output"></pre>
+      <!-- If you want turtle graphics include a canvas -->
       <div id="mycanvas"></div>
     </div>
 </div>
-<script src="js/prism.js"></script>
 <body> 
 
 </html> 
