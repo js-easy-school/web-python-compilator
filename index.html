@@ -49,10 +49,15 @@ function runit() {
 <form> 
 <textarea id="yourcode" cols="40" rows="10">import turtle
 
-t = turtle.Turtle()
-t.forward(100)
+def function1():
+    t = turtle.Turtle()
+    t.forward(100)
 
-print "Hello World" 
+def function2():
+    print("Hello World")
+
+function1()
+function2()
 </textarea><br /> 
 <button type="button" onclick="runit()">Run</button> 
 </form> 
@@ -62,4 +67,4 @@ print "Hello World"
 
 </body> 
 
-</html> 
+</html>
