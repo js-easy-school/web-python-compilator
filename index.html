@@ -11,16 +11,13 @@
     <h1>Polyglot 🦜 💬 🇬🇧 ➡️ 🏴‍☠️</h1>
     <p>Translate English into Pirate speak...</p>
     <input type="text" id="english" placeholder="Type English here..." />
-    <button py-click="execute_python_code">Execute Python Code</button>
-    <div id="editor"></div>
-    <script type="py">
-      // Define the function to execute the Python code entered in the editor
-      function execute_python_code() {
-        // Get the Python code from the editor
-        var pythonCode = document.getElementById('editor').innerText;
-        
-        // Execute the Python code using the PyScript framework
-        // (Add the necessary logic here to execute the Python code)
+    <button onclick="executePythonCode()">Execute Python Code</button>
+    <div id="editor" contenteditable="true" style="border: 1px solid #000; min-height: 100px;"></div>
+    <script type="module">
+      async function executePythonCode() {
+        const pythonCode = document.getElementById('editor').innerText;
+        const pyodide = await loadPyodide({ indexURL : "https://cdn.jsdelivr.net/pyodide/dev/full/" });
+        pyodide.runPython(pythonCode);
       }
     </script>
   </body>
