@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Простой Python Компилятор</title>
+</head>
+<body>
+  <textarea id="code" rows="10" cols="50">print("Hello, world!")</textarea>
+  <button onclick="runCode()">Выполнить</button>
+  <pre id="output"></pre>
+
+  <script>
+    function runCode() {
+      var code = document.getElementById('code').value;
+      var output = document.getElementById('output');
+      try {
+        var result = runPythonCode(code);
+        output.textContent = result;
+      } catch (error) {
+        output.textContent = 'Ошибка: ' + error.message;
+      }
+    }
+
+    function runPythonCode(code) {
+      // Здесь должен быть код для выполнения Python кода, например, с использованием библиотеки Skulpt или отправкой запроса на сервер для выполнения кода.
+      // Ниже приведен пример, как это может выглядеть с использованием библиотеки Skulpt.
+      Sk.configure({output: function(text) { document.getElementById('output').textContent += text; }});
+      Sk.misceval.asyncToPromise(function() {
+        return Sk.importMainWithBody("<stdin>", false, code, true);
+      });
+    }
+  </script>
+</body>
+</html>
