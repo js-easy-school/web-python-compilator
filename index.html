@@ -6,19 +6,30 @@
       <title>🦜 Polyglot - Piratical PyScript</title>
       <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
       <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+      <script type="text/javascript">
+          function executePythonCode() {
+              var input = document.getElementById('english').value;
+              // Execute Python code using the input
+              // Example: You can use fetch to send the input to a server-side script for execution
+              fetch('/execute-python', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ code: input }),
+              })
+              .then(response => response.json())
+              .then(data => {
+                  document.getElementById('output').innerText = data.output;
+              });
+          }
+      </script>
   </head>
   <body>
     <h1>Polyglot 🦜 💬 🇬🇧 ➡️ 🏴‍☠️</h1>
     <p>Translate English into Pirate speak...</p>
     <input type="text" id="english" placeholder="Type English here..." />
-    <button onclick="executePythonCode()">Execute Python Code</button>
-    <div id="editor" contenteditable="true" style="border: 1px solid #000; min-height: 100px;"></div>
-    <script type="module">
-      async function executePythonCode() {
-        const pythonCode = document.getElementById('editor').innerText;
-        const pyodide = await loadPyodide({ indexURL : "https://cdn.jsdelivr.net/pyodide/dev/full/" });
-        pyodide.runPython(pythonCode);
-      }
-    </script>
+    <button onclick="executePythonCode()">Translate</button>
+    <div id="output"></div>
   </body>
 </html>
