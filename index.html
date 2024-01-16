@@ -71,6 +71,7 @@ function builtinRead(x) {
 // call Sk.importMainWithBody()
 function runit() { 
    var prog = document.getElementById("yourcode").value; 
+   Prism.highlightElement(document.getElementById("yourcode"));
    var mypre = document.getElementById("output"); 
    mypre.innerHTML = ''; 
    Sk.pre = "output";
