@@ -1,38 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width,initial-scale=1" />
-      <title>🦜 Polyglot - Piratical PyScript</title>
-      <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
-      <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Простой веб-компилятор Python</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/skulpt/0.10.0/skulpt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/skulpt/0.10.0/skulpt-stdlib.js"></script>
   </head>
   <body>
-
-    <textarea id="code" cols="40" rows="10" placeholder="Enter your Python code here"></textarea>
-    <button onclick="runPythonCode()">Run</button>
-    <div id="output"></div>
+    <textarea id="code" cols="40" rows="10" placeholder="Введите ваш код Python здесь"></textarea>
+    <button onclick="runPythonCode()">Выполнить</button>
+    <pre id="output"></pre>
 
     <script>
       function runPythonCode() {
         var code = document.getElementById("code").value;
         var output = document.getElementById("output");
-        
-        // Clear previous output
+
+        // Очистить предыдущий вывод
         output.innerHTML = "";
-        
-        // Execute the Python code
-        var myPromise = Sk.misceval.asyncToPromise(function() {
-          return Sk.importMainWithBody("<stdin>", false, code, true);
-        });
-        
-        myPromise.then(function(mod) {
-          console.log("Python code executed successfully");
-        }, function(err) {
-          output.innerHTML = err.toString();
-        });
+
+        // Выполнить код Python
+        skulpt.pre = "output";
+        skulpt.configure({output: function(text) {
+          output.innerHTML += text + "\n";
+        }});
+
+        skulpt.execute(code);
       }
     </script>
-
   </body>
 </html>
