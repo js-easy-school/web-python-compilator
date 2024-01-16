@@ -70,7 +70,7 @@ function builtinRead(x) {
 // configure the output function
 // call Sk.importMainWithBody()
 function runit() { 
-   var prog = document.getElementById("yourcode").value; 
+   var prog = document.getElementById("yourcode").textContent;  
    var mypre = document.getElementById("output"); 
    mypre.innerHTML = ''; 
    Sk.pre = "output";
@@ -91,10 +91,8 @@ function runit() {
   <div id="container">
     <div id="input-container">
       <h3>Try This</h3>
-      <form>
-        <textarea id="yourcode" class="language-python" placeholder="Enter your Python code here..." rows="10"></textarea><br />
-        <button type="button" onclick="runit()">Run</button>
-      </form>
+      <pre id="yourcode" class="language-python" contenteditable="true" placeholder="Enter your Python code here..." rows="10"></pre><br />
+      <button type="button" onclick="runit()">Run</button>
     </div>
     <div id="output-container">
       <h3>Output</h3>
@@ -103,9 +101,7 @@ function runit() {
       <div id="mycanvas"></div>
     </div>
 </div>
-<script>
-  Prism.highlightAll();
-</script>
+<script src="js/prism.js"></script>
 <body> 
 
 </html> 
