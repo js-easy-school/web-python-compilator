@@ -61,6 +61,7 @@ function builtinRead(x) {
             throw "File not found: '" + x + "'";
     return Sk.builtinFiles["files"][x];
 }
+
 // Here's everything you need to run a python program in skulpt
 // grab the code from your textarea
 // get a reference to your pre element for output
@@ -78,8 +79,6 @@ function runit() {
    });
    myPromise.then(function(mod) {
        console.log('success');
-       Sk.misceval.callsim(mod.tp$getattr('process_query'));
-       Sk.misceval.callsim(mod.tp$getattr('process_friend'));
    },
        function(err) {
        console.log(err.toString());
