@@ -12,25 +12,24 @@
       background-color: #f4f4f4;
       padding: 20px;
     }
-    #container {
-  display: flex;
-  justify-content: space-between;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  padding: 20px;
-  background-color: #fff;
-}
-
-#input-container {
-  flex: 0 0 48%; /* Измените ширину по вашему усмотрению */
-  margin-bottom: 20px;
-}
-
-#output-container {
-  flex: 0 0 48%; /* Измените ширину по вашему усмотрению */
-  border-top: 2px solid #ccc;
-  padding-top: 20px;
-}
+     #container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+    }
+    #input-container {
+      flex: 1 0 100%;
+      margin-bottom: 20px;
+    }
+    #output-container {
+      flex: 1 0 100%;
+      border-top: 2px solid #ccc;
+      padding-top: 20px;
+    }
 
     #yourcode {
       width: 100%;
