@@ -64,6 +64,7 @@
   </style>
 </head>
 <body>
+  
 <script type="text/javascript">
   function outf(text) {
     var mypre = document.getElementById("output");
@@ -76,13 +77,12 @@
     return Sk.builtinFiles["files"][x];
   }
 
-  function runit() {
-    function highlightPythonCode() {
+  function highlightPythonCode() {
     // Ваша логика выделения синтаксиса с использованием Prism.js или других библиотек
     Prism.highlightAll();
-    }
+  }
 
-// Вызовите функцию выделения синтаксиса при изменении содержимого текстовой области
+  function runit() {
     var prog = document.getElementById("yourcode").value;
     document.getElementById('yourcode').addEventListener('input', highlightPythonCode);
     var mypre = document.getElementById("output");
@@ -101,6 +101,7 @@
       });
   }
 </script>
+
   <h1>Python Compiler</h1>
   <div id="container">
     <div id="input-container">
