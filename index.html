@@ -77,10 +77,18 @@
     return Sk.builtinFiles["files"][x];
   }
 
+  document.addEventListener('DOMContentLoaded', function() {
+  // Initialize Prism.js for syntax highlighting
+    Prism.highlightAll();
+  });
+  
   function highlightPythonCode() {
     // Ваша логика выделения синтаксиса с использованием Prism.js или других библиотек
-    Prism.highlightAll();
+    // Prism.highlightAll();
   }
+  // Add this script at the end of the body or after including Prism.js
+
+
 
   function runit() {
   var prog = document.getElementById("yourcode").value;
