@@ -83,9 +83,8 @@
     }
 
 // Вызовите функцию выделения синтаксиса при изменении содержимого текстовой области
-// document.getElementById('yourcode').addEventListener('input', highlightPythonCode);
-    
-    var prog = document.getElementById("yourcode").addEventListener('input', highlightPythonCode).value;
+    var prog = document.getElementById("yourcode").value;
+    document.getElementById('yourcode').addEventListener('input', highlightPythonCode);
     var mypre = document.getElementById("output");
     mypre.innerHTML = '';
     Sk.pre = "output";
