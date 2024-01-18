@@ -65,14 +65,6 @@
 </head>
 <body>
 <script type="text/javascript">
-  function highlightPythonCode() {
-    // Ваша логика выделения синтаксиса с использованием Prism.js или других библиотек
-    // Пример: Prism.highlightAll();
-}
-
-// Вызовите функцию выделения синтаксиса при изменении содержимого текстовой области
-document.getElementById('yourcode').addEventListener('input', highlightPythonCode);
-
   function outf(text) {
     var mypre = document.getElementById("output");
     mypre.innerHTML = mypre.innerHTML + text;
@@ -85,7 +77,15 @@ document.getElementById('yourcode').addEventListener('input', highlightPythonCod
   }
 
   function runit() {
-    var prog = document.getElementById("yourcode").value;
+    function highlightPythonCode() {
+    // Ваша логика выделения синтаксиса с использованием Prism.js или других библиотек
+    Prism.highlightAll();
+    }
+
+// Вызовите функцию выделения синтаксиса при изменении содержимого текстовой области
+// document.getElementById('yourcode').addEventListener('input', highlightPythonCode);
+    
+    var prog = document.getElementById("yourcode").addEventListener('input', highlightPythonCode).value;
     var mypre = document.getElementById("output");
     mypre.innerHTML = '';
     Sk.pre = "output";
