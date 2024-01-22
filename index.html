@@ -92,11 +92,12 @@
 
 
   function runit() {
-  var prog = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
-      mode: "python",
-      theme: "default",
-      lineNumbers: true
+  var prog_new = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
+    mode: "python",
+    theme: "default",
+    lineNumbers: true
   });
+  var prog = prog_new.value
   var mypre = document.getElementById("output");
   mypre.innerHTML = '';
   Sk.pre = "output";
