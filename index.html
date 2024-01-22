@@ -7,7 +7,8 @@
   <meta name="author" content="Andrew M">
   <meta name="robots" content="index, follow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="js/transcrypt.min.js" type="text/javascript"></script>
+  <script src="js/skulpt.min.js" type="text/javascript"></script>
+  <script src="js/skulpt-stdlib.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
@@ -41,23 +42,37 @@
     </div>
   </div>
   <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://js-easy-school.github.io/web-python-compilator/" width="50" height="50" border="0" title="QR код">
-
   <script>
     var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
       lineNumbers: true,
       mode: "python"
     });
-
     function outf(text) {
       var mypre = document.getElementById("output");
       mypre.textContent += text;
+    }
+    function builtinRead(x) {
+      if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+        throw "File not found: '" + x + "'";
+      return Sk.builtinFiles["files"][x];
     }
     function runit() {
       var prog = editor.getValue();
       var mypre = document.getElementById("output");
       mypre.textContent = '';
-      __pragma__('exec', prog);
-      highlightPythonCode(); // Call the syntax highlighting function
+      Sk.pre = "output";
+      Sk.configure({ output: outf, read: builtinRead });
+      (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+      var myPromise = Sk.misceval.asyncToPromise(function () {
+        return Sk.importMainWithBody("<stdin>", false, prog, true);
+      });
+      myPromise.then(function (mod) {
+        console.log('success');
+        highlightPythonCode(); // Call the syntax highlighting function
+      },
+        function (err) {
+          console.log(err.toString());
+        });
     }
   </script>
 </body>
