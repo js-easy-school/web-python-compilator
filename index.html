@@ -15,102 +15,65 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/python/python.min.js"></script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
-    }
-     #container {
+    #container {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      padding: 20px;
-      background-color: #fff;
     }
     #input-container {
-      flex: 1 0 100%;
-      margin-bottom: 20px;
+      flex: 1;
+      padding: 10px;
     }
     #output-container {
-      flex: 1 0 100%;
-      border-top: 2px solid #ccc;
-      padding-top: 20px;
-    }
-    #yourcode {
-      width: 100%;
-      height: 300px;
+      flex: 1;
       padding: 10px;
-      box-sizing: border-box;
-    }
-    #output {
-      white-space: pre-wrap;
-    }
-    button {
-      padding: 10px 20px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .dark-theme {
-      /* Add your custom dark theme styles here */
-      background-color: #1e1e1e;
-      color: #ffffff;
     }
   </style>
 </head>
 <body>
-  
-<script type="text/javascript">
-  function outf(text) {
-    var mypre = document.getElementById("output");
-    mypre.innerHTML = mypre.innerHTML + text;
-  }
-  function builtinRead(x) {
-    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
-      throw "File not found: '" + x + "'";
-    return Sk.builtinFiles["files"][x];
-  }
-
-  function runit() {
-  var prog_new = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
-    mode: "python",
-    theme: "default",
-    lineNumbers: true
-  });
-  var prog = prog_new.getValue(); // Используйте getValue() вместо value для получения кода из CodeMirror
-  var mypre = document.getElementById("output");
-  mypre.innerHTML = '';
-  Sk.pre = "output";
-  Sk.configure({ output: outf, read: builtinRead });
-  (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
-  var myPromise = Sk.misceval.asyncToPromise(function () {
-    return Sk.importMainWithBody("<stdin>", false, prog, true);
-  });
-    function (err) {
-      console.log(err.toString());
-    });
-}
-  
-</script>
-  <h1>Python Compiler</h1>
   <div id="container">
     <div id="input-container">
       <h3>Try This</h3>
-      <form>
-        <textarea id="yourcode" class="dark-theme" placeholder="Enter your Python code here..." rows="10"></textarea><br />
-        <button type="button" onclick="runit()">Run</button>
-      </form>
+      <textarea id="yourcode" placeholder="Enter your Python code here..." rows="10"></textarea><br />
+      <button type="button" onclick="runit()">Run</button>
     </div>
     <div id="output-container">
       <h3>Output</h3>
       <pre id="output"></pre>
-      <!-- If you want turtle graphics include a canvas -->
-      <div id="mycanvas"></div>
     </div>
   </div>
+
+  <script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
+      lineNumbers: true,
+      mode: "python"
+    });
+
+    function outf(text) {
+      var mypre = document.getElementById("output");
+      mypre.textContent += text;
+    }
+    function builtinRead(x) {
+      if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+        throw "File not found: '" + x + "'";
+      return Sk.builtinFiles["files"][x];
+    }
+    function runit() {
+      var prog = editor.getValue();
+      var mypre = document.getElementById("output");
+      mypre.textContent = '';
+      Sk.pre = "output";
+      Sk.configure({ output: outf, read: builtinRead });
+      (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target = 'mycanvas';
+      var myPromise = Sk.misceval.asyncToPromise(function () {
+        return Sk.importMainWithBody("<stdin>", false, prog, true);
+      });
+      myPromise.then(function (mod) {
+        console.log('success');
+        highlightPythonCode(); // Call the syntax highlighting function
+      },
+        function (err) {
+          console.log(err.toString());
+        });
+    }
+  </script>
 </body>
 </html>
