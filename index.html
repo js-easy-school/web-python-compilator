@@ -35,6 +35,10 @@
       <h3>Try This</h3>
       <textarea id="yourcode" placeholder="Enter your Python code here..." rows="10"></textarea><br />
       <button type="button" onclick="runit()">Run</button>
+      <h3>Install Python Library</h3>
+      <input type="text" id="library-name" placeholder="Enter library name">
+      <input type="text" id="library-version" placeholder="Enter library version (optional)">
+      <button type="button" onclick="installLibrary()">Install</button>
     </div>
     <div id="output-container">
       <h3>Output</h3>
@@ -74,6 +78,16 @@
           console.log(err.toString());
         });
     }
+    function installLibrary() {
+      var libraryName = document.getElementById("library-name").value;
+      var libraryVersion = document.getElementById("library-version").value;
+  
+      // Send a request to the server to execute the pip command
+      var request = new XMLHttpRequest();
+      request.open('GET', '/install-library?name=' + libraryName + '&version=' + libraryVersion, true);
+      request.send();
+    }
+
   </script>
 </body>
 </html>
