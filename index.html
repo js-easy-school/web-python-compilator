@@ -14,15 +14,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/request/2.88.2/request.min.js"></script>
   <style>
+    /* Add dark theme styles here */
+    body.dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+    /* Add more styles for dark mode as needed */
+
     #container {
       display: flex;
     }
     #input-container {
       flex: 1;
       padding: 10px;
-      resize: both; /* This allows the input container to be resized both horizontally and vertically */
-      overflow: 100%; /* This ensures that a scrollbar appears if the content exceeds the container size */
-      flex-grow: 1; /* This allows the input container to grow vertically */
+      resize: both;
+      overflow: 100%;
+      flex-grow: 1;
     }
     #output-container {
       flex: 1;
@@ -48,6 +55,15 @@
   </div>
   <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://js-easy-school.github.io/web-python-compilator/" width="50" height="50" border="0" title="QR код">
   <script>
+    // Add JavaScript code for dark theme toggle here
+    const btn = document.getElementById('btn');
+    const body = document.body;
+
+    btn.addEventListener('click', function() {
+      body.classList.toggle('dark-mode');
+    });
+
+    // Rest of your existing JavaScript code
     var editor = CodeMirror.fromTextArea(document.getElementById("yourcode"), {
       lineNumbers: true,
       mode: "python"
@@ -88,7 +104,6 @@
       request.open('GET', '/install-library?name=' + libraryName + '&version=' + libraryVersion, true);
       request.send();
     }
-
   </script>
 </body>
 </html>
