@@ -85,7 +85,7 @@
     function installLibrary() {
       var libraryName = document.getElementById("library-name").value;
       var libraryVersion = document.getElementById("library-version").value;
-  
+
       // Send a request to the server to execute the pip command
       var request = new XMLHttpRequest();
       request.open('GET', '/install-library?name=' + libraryName + '&version=' + libraryVersion, true);
