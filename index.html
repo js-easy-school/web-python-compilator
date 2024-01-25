@@ -14,21 +14,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/request/2.88.2/request.min.js"></script>
   <style>
-  #container {
-    display: flex;
-  }
-  #input-container {
-    flex: 1;
-    padding: 10px;
-    resize: both; /* This allows the input container to be resized both horizontally and vertically */
-    overflow: auto; /* This ensures that a scrollbar appears if the content exceeds the container size */
-    flex-grow: 1; /* This allows the input container to grow vertically */
-  }
-  #output-container {
-    flex: 1;
-    padding: 10px;
-  }
-</style>
+    #container {
+      display: flex;
+    }
+    #input-container {
+      flex: 1;
+      padding: 10px;
+      resize: both; /* This allows the input container to be resized both horizontally and vertically */
+      overflow: 100%; /* This ensures that a scrollbar appears if the content exceeds the container size */
+      flex-grow: 1; /* This allows the input container to grow vertically */
+    }
+    #output-container {
+      flex: 1;
+      padding: 10px;
+    }
+  </style>
 </head>
 <body>
   <div id="container">
